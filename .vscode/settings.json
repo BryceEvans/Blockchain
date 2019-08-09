@@ -3,5 +3,6 @@
         "activityBar.background": "#2E1D71",
         "titleBar.activeBackground": "#40299E",
         "titleBar.activeForeground": "#FAF9FD"
-    }
+    },
+    "python.pythonPath": "/Users/bryceevans/.local/share/virtualenvs/Blockchain-JhtCu8lm/bin/python"
 }
