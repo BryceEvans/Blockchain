@@ -10,7 +10,7 @@ def proof_of_work(last_proof):
     print("Starting work on a new proof...")
     proof = 0
     # for block 1, hast (1, p) = 000000x
-    while vaild_proof(last_proof, proof) is False:
+    while valid_proof(last_proof, proof) is False:
         proof += 1
     print("Attempting to mine...")
     return proof
@@ -45,7 +45,7 @@ if __name__ == '__main__':
         # add 1 to the number of coins mined and print it.  Otherwise,
         # print the message from the server.
         
-        new_proof =  Proof_of_work(last_proof)
+        new_proof =  proof_of_work(last_proof)
 
         proof_data = {'proof': new_proof}
         r = requests.post(url = node + '/mine', json = proof_data)
