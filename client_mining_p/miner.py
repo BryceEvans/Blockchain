@@ -6,18 +6,18 @@ import sys
 
 # TODO: Implement functionality to search for a proof 
 
-def proof_of_work(last_proof):
+def proof_of_work(last_block_string):
     print("Starting work on a new proof...")
     proof = 0
     # for block 1, hast (1, p) = 000000x
-    while valid_proof(last_proof, proof) is False:
+    while valid_proof(last_block_string, proof) is False:
         proof += 1
     print("Attempting to mine...")
     return proof
 
-def valid_proof(last_proof, proof):
+def valid_proof(last_block_string, proof):
     # build string to hash
-    guess = f'{last_proof}{proof}'.encode()
+    guess = f'{last_block_string}{proof}'.encode()
     # use hash function
     guess_hash = hashlib.sha256(guess).hexdigest()
     # check if 6 leading 0's in hash result
@@ -44,8 +44,13 @@ if __name__ == '__main__':
         # TODO: If the server responds with 'New Block Forged'
         # add 1 to the number of coins mined and print it.  Otherwise,
         # print the message from the server.
+        r = requests.get(url = node + '/last_block_string')
+        data = r.json()
+        last_block_string = data['last_block_string']['previous_hash']
+
+        print(last_block_string)
         
-        new_proof =  proof_of_work(last_proof)
+        new_proof =  proof_of_work(last_block_string)
 
         proof_data = {'proof': new_proof}
         r = requests.post(url = node + '/mine', json = proof_data)
